@@ -2,8 +2,8 @@ Vagrantfiles Collection
 =======================
 
 <!-- vscode-markdown-toc -->
-* [Prerequisites](#Prerequisites)
-	* [Build Virtual Machines](#BuildVirtualMachines)
+* [Simple Help](#SimpleHelp)
+* [Vagrantfiles List](#VagrantfilesList)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -15,7 +15,7 @@ Vagrantfiles Collection
   * Download - https://www.vagrantup.com/downloads.html
   * Install - https://www.vagrantup.com/docs/installation
 
-## <a name='BuildVirtualMachines'></a>Simple Help
+## <a name='SimpleHelp'></a>Simple Help
 
 * Clone the Git repository
 * Go to a Vagrantfile folder
@@ -70,9 +70,9 @@ Vagrantfiles Collection
 
 To find more options use `vagrant help`
 
-## Vagrantfiles List
+## <a name='VagrantfilesList'></a>Vagrantfiles List
 
-* [Fresh Multinode Simple](fresh-multinode-simple/README.md)
+* [Fresh Multinode Simple](fresh-multinode-simple/README.md)∏
 
 ---
 
