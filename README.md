@@ -72,7 +72,7 @@ To find more options use `vagrant help`
 
 ## <a name='VagrantfilesList'></a>Vagrantfiles List
 
-* [Fresh Multinode Simple](fresh-multinode-simple/README.md)∏
+* [Fresh Multinode Simple](fresh-multinode-simple/README.md)
 
 ---
 
