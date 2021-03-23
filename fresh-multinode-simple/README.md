@@ -40,3 +40,17 @@ for i in {1..3}; do echo "192.0.2.10$i node$i.example.com node$i" >> /etc/hosts;
 ```ruby
 (1..3).each do |i|
 ```
+
+## Usage
+
+Run all virtual machines
+
+```bash
+> vagrant up
+```
+
+Run the first node
+
+```bash
+> vagrant node1 up
+```
