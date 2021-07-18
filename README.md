@@ -72,8 +72,8 @@ To find more options use `vagrant help`
 
 ## <a name='VagrantfilesList'></a>Vagrantfiles List
 
-* [Ansible Workshop](ansible-workshop/README.md)
-* [Fresh Multinode Simple](fresh-multinode-simple/README.md)
+* [Ansible Workshop](ansible-workshop/)
+* [Fresh Multinode Simple](fresh-multinode-simple/)
 
 ---
 
