@@ -5,7 +5,8 @@ $node_update = <<-'SCRIPT'
   sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config && systemctl restart sshd
   echo -e '192.0.2.100 control.example.com control' >> /etc/hosts
   for i in {1..3}; do grep "192.0.2.10$i node$i.example.com node$i" || echo "192.0.2.10$i node$i.example.com node$i" >> /etc/hosts; done
-  yum -y install epel-release git bind-utils lsof mc net-tools nmap-ncat python3 sshpass tar telnet tree vim wget zip
+  yum -y install epel-release
+  yum -y install bind-utils git lsof mc net-tools nmap-ncat python3 sshpass tar telnet tree vim wget zip
 SCRIPT
 
 $control_user_configure = <<-'SCRIPT'
@@ -22,7 +23,7 @@ Vagrant.configure("2") do |config|
   (1..3).each do |i|
     config.vm.define "node#{i}" do |node|
       node.vbguest.installer_options = { allow_kernel_upgrade: true }
-      node.vm.box = "centos/7"
+      node.vm.box = "centos/8"
       node.vm.hostname = "node#{i}.example.com"
       node.vm.network "private_network", ip: "192.0.2.10#{i}"
       node.vm.provision "shell", inline: $node_update
@@ -35,7 +36,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "control", primary: true do |control|
     control.vbguest.installer_options = { allow_kernel_upgrade: true }
-    control.vm.box = "centos/7"
+    control.vm.box = "centos/8"
     control.vm.hostname = "control.example.com"
     control.vm.network "private_network", ip: "192.0.2.100"
     control.vm.provision "nodes", type: "shell", inline: $node_update

@@ -1,7 +1,7 @@
 Fresh Multinode Simple
 ======================
 
-Deploys three fresh CentOS 7 nodes.
+Deploys three fresh CentOS 8 nodes.
 
 ## Preinstalled Packages
 
