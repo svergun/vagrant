@@ -3,7 +3,7 @@ Ansible Workshop
 
 ## Synopsis
 
-The Vagrant file builds a simple environment for learning Ansible automation.
+The Vagrant file builds a simple environment for learning Ansible.
 
 ## Defaults
 
@@ -21,7 +21,7 @@ The Vagrant file builds a simple environment for learning Ansible automation.
 * Managed node vRAM: `1024`
 * Default user: `vagrant`
 * Default Auth Method: `SSH private key`
-* Base Image: `CentOS 7`
+* Base Image: `CentOS 8`
 
 The control machine creates an ssh key pair and copies them to the managed nodes to be able to connect using an ssh key.
 

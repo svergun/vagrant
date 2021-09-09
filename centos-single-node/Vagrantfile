@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+if ENV['VAGRANT_NODE_DISTR']
+  VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
+else
+  VAGRANT_NODE_DISTR = "centos/8"
+end
+
+$node_update = <<-'SCRIPT'
+  grep "192.0.2.101 node1.example.com node1" || echo "192.0.2.101 node1.example.com node1" >> /etc/hosts
+  yum -y install epel-release git bind-utils lsof mc net-tools nmap-ncat tar telnet tree vim wget zip
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  config.vm.define "node1" do |node|
+    node.vbguest.installer_options = { allow_kernel_upgrade: true }
+    node.vm.box = "#{VAGRANT_NODE_DISTR}"
+    node.vm.hostname = "node1.example.com"
+    node.vm.network "private_network", ip: "192.0.2.101"
+    node.vm.provision "shell", inline: $node_update
+    node.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+  end
+end

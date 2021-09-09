@@ -1,34 +1,36 @@
 Vagrantfiles Collection
 =======================
 
-<!-- vscode-markdown-toc -->
-* [Simple Help](#SimpleHelp)
-* [Vagrantfiles List](#VagrantfilesList)
+# Install Vagrant
 
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
+* Download - https://www.vagrantup.com/downloads.html
+* Install - https://www.vagrantup.com/docs/installation
 
-* Vagrant
-  * Download - https://www.vagrantup.com/downloads.html
-  * Install - https://www.vagrantup.com/docs/installation
+# Vagrantfiles List
 
-## <a name='SimpleHelp'></a>Simple Help
+* [Ansible Workshop](ansible-workshop/)
+* [CentOS Multi Node](centos-multi-node/)
+* [CentOS Single Node](centos-single-node/)
+
+# Base Vagrant Commands
 
 * Clone the Git repository
 * Go to a Vagrantfile folder
 
   ```bash
-  > cd vagrant/<vagrantfile-folder>
+  cd vagrant/<vagrantfile-folder>
   ```
 
-* Build virtual machines
+* Build all virtual machines
 
   ```bash
-  > vagrant up
+  vagrant up
   ```
+* Build a specific virtual machine
+
+```bash
+vagrant up <node_name>
+```
 
 * Check virtual machines status
 
@@ -69,11 +71,6 @@ Vagrantfiles Collection
   ```
 
 To find more options use `vagrant help`
-
-## <a name='VagrantfilesList'></a>Vagrantfiles List
-
-* [Ansible Workshop](ansible-workshop/)
-* [Fresh Multinode Simple](fresh-multinode-simple/)
 
 ---
 

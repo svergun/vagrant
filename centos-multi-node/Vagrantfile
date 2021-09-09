@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+if ENV['VAGRANT_NODE_COUNT']
+  VAGRANT_NODE_COUNT = ENV['VAGRANT_NODE_COUNT']
+else
+  VAGRANT_NODE_COUNT = 3
+end
+
+if ENV['VAGRANT_NODE_DISTR']
+  VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
+else
+  VAGRANT_NODE_DISTR = "centos/8"
+end
+
+$node_update = <<-'SCRIPT'
+  i=1
+  while [ $i -le $n ]; do grep "192.0.2.10$i node$i.example.com node$i" || echo "192.0.2.10$i node$i.example.com node$i" >> /etc/hosts; i=`expr $i + 1`; done
+  yum -y install epel-release git bind-utils lsof mc net-tools nmap-ncat tar telnet tree vim wget zip
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  (1..VAGRANT_NODE_COUNT.to_i).each do |i|
+    config.vm.define "node#{i}" do |node|
+      node.vbguest.installer_options = { allow_kernel_upgrade: true }
+      node.vm.box = "#{VAGRANT_NODE_DISTR}"
+      node.vm.hostname = "node#{i}.example.com"
+      node.vm.network "private_network", ip: "192.0.2.10#{i}"
+      node.vm.provision "shell", inline: $node_update, env: {"n" => "#{VAGRANT_NODE_COUNT}"}
+      node.vm.provider "virtualbox" do |vb|
+        vb.memory = 1024
+        vb.cpus = 1
+      end
+    end
+  end
+end
