@@ -31,6 +31,29 @@ Reset `VAGRANT_NODE_DISTR` to the default value
 ```bash
 unset VAGRANT_NODE_DISTR
 ```
+* Check virtual machines status
+
+  ```bash
+  > vagrant status
+  ```
+
+* Stop virtual machines
+
+  ```bash
+  > vagrant halt
+  ```
+
+* Destroy virtual machines
+
+  ```bash
+  > vagrant destroy
+  ```
+
+* Connect to a virtual machine
+
+  ```bash
+  > vagrant ssh <node_name>
+  ```
 
 # Default Configuration
 
