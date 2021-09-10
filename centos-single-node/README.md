@@ -1,7 +1,7 @@
 Fresh Multinode Simple
 ======================
 
-This Vagrantfile is configured to deploy a **Red Hat based** virtual machine using the Virtualbox provider. By default will be provisioned one **CentOS 8** virtual machine. You may change the OS distributive using environment variables.
+This Vagrantfile is configured to deploy a **Red Hat based** virtual machine using the Virtualbox provider. By default will be provisioned one **CentOS 8** virtual machine. You may change the OS distributive using the environment variable.
 
 Using this Vagrant file you may provision a virtual machine based on the following distributives:
   * Red Hat Entreprise Linux
