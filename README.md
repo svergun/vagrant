@@ -53,21 +53,21 @@ vagrant up <node_name>
 * Destroy virtual machines
 
   ```bash
-  > vagrant destroy
+  vagrant destroy
   ```
 
 * Connect to a virtual machine
 
   ```bash
-  > vagrant ssh <node_name>
+  vagrant ssh <node_name>
   ```
 
 * Update VM image
 
   ```bash
-  > vagrant box list
-  > vagrant box prune
-  > vagrant box remove <box>
+  vagrant box list
+  vagrant box prune
+  vagrant box remove <box>
   ```
 
 To find more options use `vagrant help`
