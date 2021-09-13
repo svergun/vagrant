@@ -1,0 +1,70 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+if ENV['VAGRANT_NODE_DISTR']
+  VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
+else
+  VAGRANT_NODE_DISTR = "centos/8"
+end
+
+if ENV['VAGRANT_ZK_VERSION']
+  VAGRANT_ZK_VERSION = ENV['VAGRANT_ZK_VERSION']
+else
+  VAGRANT_ZK_VERSION = "3.6.3"
+end
+
+
+$node_update = <<-'SCRIPT'
+grep "192.0.2.101 node1.example.com node1" || echo "192.0.2.101 node1.example.com node1" >> /etc/hosts
+yum -y install epel-release git bind-utils lsof mc net-tools nmap-ncat tar telnet tree vim wget zip
+SCRIPT
+
+$zookeeper_deploy = <<-'SCRIPT'
+yum -y install java-11-openjdk
+cd /opt/
+wget https://archive.apache.org/dist/zookeeper/zookeeper-$ZK_VERSION/apache-zookeeper-$ZK_VERSION-bin.tar.gz
+tar -zvxf apache-zookeeper-$ZK_VERSION-bin.tar.gz
+mv apache-zookeeper-$ZK_VERSION-bin zookeeper
+cd zookeeper/
+mv conf/zoo_sample.cfg conf/zoo.cfg
+sed -i 's|dataDir=.*|dataDir=/opt/zookeeper/data|g' conf/zoo.cfg
+
+tee /etc/systemd/system/zookeeper.service << EOT
+[Unit]
+Description=Zookeeper Server
+Documentation=https://zookeeper.apache.org/doc
+Requires=network.target
+After=network.target
+
+[Service]
+Type=forking
+Environment="JMXPORT=9900"
+Environment="LOG_DIR=/var/log/zookeeper"
+WorkingDirectory=/opt/zookeeper
+ExecStart=/opt/zookeeper/bin/zkServer.sh start
+ExecStop=/opt/zookeeper/bin/zkServer.sh stop
+ExecReload=/opt/zookeeper/bin/zkServer.sh restart
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOT
+
+systemctl daemon-reload
+systemctl start zookeeper.service
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  config.vm.define "node1" do |node|
+    node.vbguest.installer_options = { allow_kernel_upgrade: true }
+    node.vm.box = "#{VAGRANT_NODE_DISTR}"
+    node.vm.hostname = "node1.example.com"
+    node.vm.network "private_network", ip: "192.0.2.101"
+    node.vm.provision "node", type: "shell", inline: $node_update
+    node.vm.provision "zookeeper", type: "shell", inline: $zookeeper_deploy, env: {"ZK_VERSION" => "#{VAGRANT_ZK_VERSION}"}
+    node.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+  end
+end
