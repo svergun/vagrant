@@ -3,8 +3,6 @@ Single Node Simple
 
 This Vagrantfile is configured to deploy a **Red Hat based** virtual machine using the Virtualbox provider. By default will be provisioned one **CentOS 8** virtual machine. 
 
-Vagrantfile How To
-=======================
 
 # Install Vagrant
 
@@ -89,7 +87,7 @@ To find more options use `vagrant help`
 * zip
 
 
-Vagrantfile Extended capabilities
+Extended capabilities
 =======================
 
 You may change the OS distributive using environment variables.
