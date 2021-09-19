@@ -1,5 +1,5 @@
-Fresh Multinode Simple
-======================
+Zookeeper Standalone Server
+===========================
 
 This Vagrantfile is configured to deploy a standalone zookeeper server. By default will be provisioned a **CentOS 8** virtual machine. You may change the distributive using the `VAGRANT_NODE_DISTR` environment variable.
 
