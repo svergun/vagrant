@@ -11,6 +11,7 @@ Vagrantfiles Collection
 * [Ansible Workshop](ansible-workshop/)
 * [CentOS Multi Node](centos-multi-node/)
 * [CentOS Single Node](centos-single-node/)
+* [Zookeeper Standalone Server](zookeeper-standalone/)
 
 # Base Vagrant Commands
 

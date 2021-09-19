@@ -1,0 +1,28 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+if ENV['VAGRANT_NODE_DISTR']
+  VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
+else
+  VAGRANT_NODE_DISTR = "centos/8"
+end
+
+if ENV['VAGRANT_ZK_VERSION']
+  VAGRANT_ZK_VERSION = ENV['VAGRANT_ZK_VERSION']
+else
+  VAGRANT_ZK_VERSION = "3.6.3"
+end
+
+Vagrant.configure("2") do |config|
+  config.vm.define "node1" do |node|
+    node.vbguest.installer_options = { allow_kernel_upgrade: true }
+    node.vm.box = "#{VAGRANT_NODE_DISTR}"
+    node.vm.hostname = "node1.example.com"
+    node.vm.network "private_network", ip: "192.0.2.101"
+    node.vm.provision "shell", path: "./provision.sh", env: {"ZK_VERSION" => "#{VAGRANT_ZK_VERSION}"}
+    node.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+  end
+end
