@@ -15,7 +15,7 @@ end
 
 $node_update = <<-'SCRIPT'
   i=1
-  while [ $i -le $n ]; do grep "192.0.2.10$i node$i.example.com node$i" || echo "192.0.2.10$i node$i.example.com node$i" >> /etc/hosts; i=`expr $i + 1`; done
+  while [ $i -le $n ]; do grep -xF "192.0.2.10$i node$i.example.com node$i" /etc/hosts || echo "192.0.2.10$i node$i.example.com node$i" >> /etc/hosts; i=`expr $i + 1`; done
   yum -y install epel-release git bind-utils lsof mc net-tools nmap-ncat tar telnet tree vim wget zip
 SCRIPT
 

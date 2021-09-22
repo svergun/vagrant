@@ -8,7 +8,7 @@ else
 end
 
 $node_update = <<-'SCRIPT'
-  grep "192.0.2.101 node1.example.com node1" || echo "192.0.2.101 node1.example.com node1" >> /etc/hosts
+  grep -xF "192.0.2.101 node1.example.com node1" /etc/hosts || echo "192.0.2.101 node1.example.com node1" >> /etc/hosts
   yum -y install epel-release git bind-utils lsof mc net-tools nmap-ncat tar telnet tree vim wget zip
 SCRIPT
 
