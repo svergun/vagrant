@@ -85,6 +85,11 @@ To find more options use `vagrant help`
 * vim
 * wget
 * zip
+* mtr
+* traceroute
+* iftop
+* tcpdump
+* nmap
 
 
 Extended capabilities
