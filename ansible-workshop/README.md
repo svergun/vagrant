@@ -82,7 +82,7 @@ vagrant halt
 To find more options use `vagrant help`
 
 Extended capabilities
-=======================
+=====================
 
 You may change the number of virtual machines and distributive using environment variables `VAGRANT_NODE_COUNT` and `VAGRANT_NODE_DISTR`.
 
@@ -130,6 +130,11 @@ Reset `VAGRANT_NODE_COUNT` and `VAGRANT_NODE_DISTR` to default values
 unset VAGRANT_NODE_COUNT
 unset VAGRANT_NODE_DISTR
 ```
+
+Ansible Dynamic Inventory
+=========================
+
+Use `inventory/vagrant_inventory.py` script to build the Ansible dynamic inventory of your Vagrant environment.
 
 ---
 
