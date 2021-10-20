@@ -13,24 +13,24 @@ done
 
 # Install packages
 echo "INSTALL PACKAGES ..."
-PACKAGE_LIST="git lsof mc net-tools python3 sshpass tar telnet tree vim wget zip"
+PACKAGE_LIST="git lsof mc net-tools sshpass tar telnet tree vim wget zip"
 
 if [ -x "$(command -v apt-get)" ]
   then
     echo "--> Add universe repository"
     add-apt-repository -y universe
     echo "--> Install packages"
-    apt-get install -y -q nmap $PACKAGE_LIST
+    apt-get install -y -q nmap python3 $PACKAGE_LIST
   elif [ -x "$(command -v dnf)" ]; then
     echo "--> Install EPEL Release"
     dnf install -y -q epel-release
     echo "--> Install packages"
-    dnf install -y -q bind-utils nmap-ncat $PACKAGE_LIST
+    dnf install -y -q bind-utils nmap-ncat python3.8 $PACKAGE_LIST
   elif [ -x "$(command -v yum)" ]; then
     echo "--> Install EPEL Release"
     yum install -y -q epel-release
     echo "--> Install packages"
-    yum install -y -q bind-utils nmap-ncat $PACKAGE_LIST
+    yum install -y -q bind-utils nmap-ncat python3.8 $PACKAGE_LIST
   else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $PACKAGE_LIST">&2
 fi
 
