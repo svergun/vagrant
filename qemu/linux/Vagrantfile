@@ -1,0 +1,57 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+## Define Vagrant Provider
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'qemu'
+
+## Vagrant Node Variables
+###############################################################################
+# Node Count
+if ENV['VAGRANT_NODE_COUNT']
+  VAGRANT_NODE_COUNT = ENV['VAGRANT_NODE_COUNT']
+else
+  VAGRANT_NODE_COUNT = 1
+end
+# Node Name
+if ENV['VAGRANT_NODE_NAME']
+    VAGRANT_NODE_NAME = ENV['VAGRANT_NODE_NAME']
+  else
+    VAGRANT_NODE_NAME = "node"
+end
+# Vagrant Node Distributive (RHEL & Debian family are supported by bootstrap.sh)
+if ENV['VAGRANT_NODE_DISTR']
+    VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
+  else
+    VAGRANT_NODE_DISTR = "generic/centos8"
+end
+# Number of cores the guest is permitted to use
+if ENV['VAGRANT_NODE_SMP']
+    VAGRANT_NODE_SMP = ENV['VAGRANT_NODE_SMP']
+  else
+    VAGRANT_NODE_SMP = 1
+end
+
+## Vagrant Node Provisioning
+###############################################################################
+Vagrant.configure("2") do |config|
+  # Nodes Loop
+  (1..VAGRANT_NODE_COUNT.to_i).each do |i|
+    # Configure VM
+    config.vm.define "#{VAGRANT_NODE_NAME}#{i}" do |node|
+      node.vm.box = "#{VAGRANT_NODE_DISTR}"
+      node.vm.hostname = "#{VAGRANT_NODE_NAME}#{i}.example.com"
+      node.vm.provision "node", type: "shell", path: "./bootstrap.sh", env: {"VNC" => "#{VAGRANT_NODE_COUNT}", "VNN" => "#{VAGRANT_NODE_NAME}"}
+      # QEMU VM Provider
+      node.vm.provider :qemu do |qemu|
+        qemu.arch = "x86_64"
+        qemu.machine = "q35"
+        qemu.cpu = "max"
+        qemu.smp = "#{VAGRANT_NODE_SMP}"
+        qemu.memory = "512M"
+        qemu.net_device = "virtio-net-pci"
+        qemu.extra_netdev_args = "net=192.0.2.0/24,dhcpstart=192.0.2.10#{i}"
+        qemu.ssh_port = "2202#{i}"
+      end
+    end
+  end
+end
