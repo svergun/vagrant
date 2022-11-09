@@ -10,7 +10,7 @@ chmod 600 .ssh/config
 # Copy SSH public key to managed nodes
 i=1
 while [ $i -le $n ]; do
-  sshpass -p 'vagrant' ssh-copy-id -i /home/vagrant/.ssh/id_rsa.pub vagrant@node$i
+  { sleep 1; echo vagrant; } | script -q /dev/null -c "ssh-copy-id -f -i /home/vagrant/.ssh/id_rsa.pub vagrant@node$i"
   i=`expr $i + 1`
 done
 
