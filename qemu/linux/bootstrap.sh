@@ -5,7 +5,6 @@ echo "CONFIGURE /etc/hosts ..."
 i=1
 while [ $i -le $VNC ]; do
   grep -xF "192.0.2.10$i $VNN$i.example.com $VNN$i" /etc/hosts || echo "192.0.2.10$i $VNN$i.example.com $VNN$i" >> /etc/hosts
-  # grep -xF "192.0.2.10$i node$i.example.com node$i" /etc/hosts || echo "192.0.2.10$i node$i.example.com node$i" >> /etc/hosts
   i=`expr $i + 1`
 done
 
