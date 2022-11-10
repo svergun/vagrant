@@ -1,0 +1,66 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+## Define Vagrant Provider
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'qemu'
+
+## Vagrant Node Variables
+###############################################################################
+# Node Count
+if ENV['VAGRANT_NODE_COUNT']
+  VAGRANT_NODE_COUNT = ENV['VAGRANT_NODE_COUNT']
+else
+  VAGRANT_NODE_COUNT = 2
+end
+# Vagrant Node Distributive (RHEL & Debian family are supported by bootstrap.sh)
+if ENV['VAGRANT_NODE_DISTR']
+    VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
+  else
+    VAGRANT_NODE_DISTR = "generic/centos9s"
+end
+
+## Vagrant Node Provisioning
+###############################################################################
+Vagrant.configure("2") do |config|
+
+  # Nodes Loop
+  (1..VAGRANT_NODE_COUNT.to_i).each do |i|
+    # Configure VM
+    config.vm.define "node#{i}" do |node|
+      node.vm.box = "#{VAGRANT_NODE_DISTR}"
+      node.vm.hostname = "node#{i}.example.com"
+      node.vm.provision "node", type: "shell", path: "./bootstrap.sh", env: {"VNC" => "#{VAGRANT_NODE_COUNT}"}
+      # QEMU VM Provider
+      node.vm.provider :qemu do |qemu|
+        qemu.arch = "x86_64"
+        qemu.machine = "q35"
+        qemu.cpu = "max"
+        qemu.smp = 1
+        qemu.memory = "512M"
+        qemu.net_device = "virtio-net-pci"
+        qemu.extra_netdev_args = "net=192.0.2.0/24,dhcpstart=192.0.2.10#{i}"
+        qemu.ssh_port = "2202#{i}"
+      end
+    end
+  end
+
+  # Control Node
+  config.vm.define "control", primary: true do |control|
+    control.vm.box = "#{VAGRANT_NODE_DISTR}"
+    control.vm.hostname = "control.example.com"
+    control.vm.provision "node", type: "shell", path: "./bootstrap.sh", env: {"VNC" => "#{VAGRANT_NODE_COUNT}"}
+    control.vm.provision "control", type: "shell", path: "./provision-control.sh", privileged: false, env: {"VNC" => "#{VAGRANT_NODE_COUNT}"}
+    # QEMU VM Provider
+    control.vm.provider :qemu do |qemu|
+      qemu.arch = "x86_64"
+      qemu.machine = "q35"
+      qemu.cpu = "max"
+      qemu.smp = 1
+      qemu.memory = "512M"
+      qemu.net_device = "virtio-net-pci"
+      qemu.extra_netdev_args = "net=192.0.2.0/24,dhcpstart=192.0.2.100"
+      qemu.ssh_port = "22020"
+    end
+  end
+
+end
