@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
 if ENV['VAGRANT_NODE_COUNT']
   VAGRANT_NODE_COUNT = ENV['VAGRANT_NODE_COUNT']
 else
@@ -10,7 +12,7 @@ end
 if ENV['VAGRANT_NODE_DISTR']
   VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
 else
-  VAGRANT_NODE_DISTR = "centos/8"
+  VAGRANT_NODE_DISTR = "generic/centos9s"
 end
 
 Vagrant.configure("2") do |config|
@@ -21,7 +23,7 @@ Vagrant.configure("2") do |config|
       node.vbguest.installer_options = { allow_kernel_upgrade: true }
       node.vm.box = "#{VAGRANT_NODE_DISTR}"
       node.vm.hostname = "node#{i}.example.com"
-      node.vm.network "private_network", ip: "192.0.2.10#{i}"
+      node.vm.network "private_network", ip: "192.0.2.10#{i}", virtualbox__intnet: true
       node.vm.provision "node", type: "shell", path: "./provision-node.sh", env: {"n" => "#{VAGRANT_NODE_COUNT}"}
       node.vm.provider "virtualbox" do |vb|
         vb.memory = 1024
@@ -35,7 +37,7 @@ Vagrant.configure("2") do |config|
     control.vbguest.installer_options = { allow_kernel_upgrade: true }
     control.vm.box = "#{VAGRANT_NODE_DISTR}"
     control.vm.hostname = "control.example.com"
-    control.vm.network "private_network", ip: "192.0.2.100"
+    control.vm.network "private_network", ip: "192.0.2.100", virtualbox__intnet: true
     control.vm.provision "node", type: "shell", path: "./provision-node.sh", env: {"n" => "#{VAGRANT_NODE_COUNT}"}
     control.vm.provision "control", type: "shell", path: "./provision-control.sh", privileged: false, env: {"n" => "#{VAGRANT_NODE_COUNT}"}
     control.vm.provider "virtualbox" do |vb|
