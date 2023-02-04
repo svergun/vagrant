@@ -10,7 +10,7 @@ echo "--> Install EPEL Release"
 yum install -y -q epel-release
 
 echo "INSTALL PACKAGES ..."
-PACKAGE_LIST="epel-release git bind-utils iftop lsof mc mtr net-tools nmap-ncat tar tcpdump telnet traceroute tree vim wget zip"
+PACKAGE_LIST="git bind-utils iftop lsof mc mtr net-tools nmap-ncat tar tcpdump telnet traceroute tree vim wget zip"
 yum install -y -q $PACKAGE_LIST
 
 # Configure SSH Daemon
