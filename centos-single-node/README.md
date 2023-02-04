@@ -96,7 +96,8 @@ Extended capabilities
 
 You may change the OS distributive using environment variables.
 
-Using this Vagrant file you may provision a virtual machine based on the following distributives:
+List of valid distributives:
+
   * Red Hat Entreprise Linux
   * CentOS Linux
   * Oracle Linux
