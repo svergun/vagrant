@@ -1,7 +1,7 @@
 Single Node Simple
 ======================
 
-This Vagrantfile is configured to deploy a **Red Hat based** virtual machine using the Virtualbox provider. By default will be provisioned one **CentOS 8** virtual machine. 
+This is a Vagrantfile to deploy a **CentOS based** virtual machine using a Virtualbox provider. By default will be provisioned one **CentOS 9s** virtual machine.
 
 
 # Install Vagrant
@@ -61,7 +61,7 @@ To find more options use `vagrant help`
 # Default Configuration
 
 * Default Node Count: `1`
-* Default Distributive: `Linux CentOS 8`
+* Default Distributive: `Linux CentOS 9s`
 * Node Name: `node1`
 * Node FQDN: `node1.example.com`
 * Node IPv4: `192.0.2.101`
@@ -72,24 +72,23 @@ To find more options use `vagrant help`
 
 ## List of Pre-installed Packages
 
-* bind-utils
 * epel-release
 * git
+* bind-utils
+* iftop
 * lsof
 * mc
+* mtr
 * net-tools
 * nmap-ncat
 * tar
+* tcpdump
 * telnet
+* traceroute
 * tree
 * vim
 * wget
 * zip
-* mtr
-* traceroute
-* iftop
-* tcpdump
-* nmap
 
 
 Extended capabilities
@@ -103,15 +102,13 @@ Using this Vagrant file you may provision a virtual machine based on the followi
   * Oracle Linux
   * Fedora
 
-Example how to discover the official CentOS distribitives using Vagrant CLI
+Example how to discover CentOS distribitives using Vagrant CLI
 
 ```bash
-vagrant cloud search --provider virtualbox --limit 100 --short centos | grep "centos/[0-9]"
-centos/7
-centos/8
+vagrant cloud search --provider virtualbox --limit 100 --short centos | grep "generic/centos.*"
 ```
 
-To change the provisioning distributive use `VAGRANT_NODE_DISTR`
+To change provisioning distributive use `VAGRANT_NODE_DISTR`
 
 ```bash
 export VAGRANT_NODE_DISTR="centos/7"
