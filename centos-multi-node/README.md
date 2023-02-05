@@ -1,43 +1,15 @@
-Fresh Multinode Simple
+Linux Multi Node Virtual Environment
 ======================
 
-This is a Vagrantfile to deploy a few **CentOS based** virtual machines using a Virtualbox provider. By default will be provisioned three **CentOS 9s** virtual machines. You may change the number of virtual machines and distributive version using environment variables.
+This is a Vagrantfile to deploy a few **CentOS based** virtual machines using a Virtualbox provider. By default will be provisioned three **CentOS 9s** virtual machines. You can change the number of virtual machines and distributive version using the [virtual environment extended capabilities](https://github.com/svergun/vagrant/wiki/VE-Extended-Capabilities).
 
-List of valid distributives:
+[Install Virtual Environment](https://github.com/svergun/vagrant/wiki/Install-Virtual-Environment)
 
-  * Red Hat Entreprise Linux
-  * CentOS Linux
-  * Oracle Linux
-  * Fedora
+[Vagrant Base Commands](https://github.com/svergun/vagrant/wiki/Vagrant-Base-Commands)
 
-You can discover Vagrant boxes on [Vagrant Cloud](https://app.vagrantup.com/boxes/search)
+[Vagrant CLI Official Guide](https://developer.hashicorp.com/vagrant/docs/cli)
 
-Example how to discover the official CentOS distribitives using Vagrant CLI
-
-```bash
-vagrant cloud search --provider virtualbox --limit 100 --short centos | grep "generic/centos.*"
-```
-
-To change the number of provisioned virtual machines use `VAGRANT_NODE_COUNT`
-
-```bash
-export VAGRANT_NODE_COUNT=5
-vagrant up
-```
-
-To change the provisioning distributive use `VAGRANT_NODE_DISTR`
-
-```bash
-export VAGRANT_NODE_DISTR="generic/centos8"
-vagrant up
-```
-
-Reset `VAGRANT_NODE_COUNT` and `VAGRANT_NODE_DISTR` to default values
-
-```bash
-unset VAGRANT_NODE_COUNT
-unset VAGRANT_NODE_DISTR
-```
+[Virtual Environment Extended Capabilities](https://github.com/svergun/vagrant/wiki/VE-Extended-Capabilities)
 
 # Default Configuration
 
