@@ -1,4 +1,4 @@
-Single Node Simple
+Linux Single Node Virtual Environment
 ======================
 
 This is a Vagrantfile to deploy a **CentOS based** virtual machine using a Virtualbox provider. By default will be provisioned one **CentOS 9s** virtual machine.
