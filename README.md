@@ -1,78 +1,21 @@
 Vagrantfiles Collection
 =======================
 
-# Install Vagrant
+This is a collection of Vagrantfiles for runnig a virtual environment (VE) using VirtualBox/QEMU hypervisors and Vagrant
 
-* Download - https://www.vagrantup.com/downloads.html
-* Install - https://www.vagrantup.com/docs/installation
+# List of Vagrant files
 
-# Vagrantfiles List
-
-* [Ansible Workshop](ansible-workshop/)
-* [CentOS Multi Node](centos-multi-node/)
-* [CentOS Single Node](centos-single-node/)
+* [Ansible VE](ansible-workshop/)
+* [CentOS Linux Single Node VE](centos-single-node/)
+* [CentOS Linux Multi Node VE](centos-multi-node/)
 * [Zookeeper Standalone Server](zookeeper-standalone/)
 
-# Base Vagrant Commands
+[Install Virtual Environment](https://github.com/svergun/vagrant/wiki/Install-Virtual-Environment)
 
-* Clone the Git repository
-* Go to a Vagrantfile folder
+[Vagrant Base Commands](https://github.com/svergun/vagrant/wiki/Vagrant-Base-Commands)
 
-  ```bash
-  cd vagrant/<vagrantfile-folder>
-  ```
-
-* Build all virtual machines
-
-  ```bash
-  vagrant up
-  ```
-* Build a specific virtual machine
-
-```bash
-vagrant up <node_name>
-```
-
-* Check virtual machines status
-
-  ```bash
-  > vagrant status
-
-  Current machine states:
-   
-  control                   running (virtualbox)
-  node1                     running (virtualbox)
-  node2                     running (virtualbox)
-  ```
-
-* Stop virtual machines
-
-  ```bash
-  > vagrant halt
-  ```
-
-* Destroy virtual machines
-
-  ```bash
-  vagrant destroy
-  ```
-
-* Connect to a virtual machine
-
-  ```bash
-  vagrant ssh <node_name>
-  ```
-
-* Update VM image
-
-  ```bash
-  vagrant box list
-  vagrant box prune
-  vagrant box remove <box>
-  ```
-
-To find more options use `vagrant help`
+[Virtual Environment Extended Capabilities](https://github.com/svergun/vagrant/wiki/VE-Extended-Capabilities)
 
 ---
 
-Maintained by [Sergey Vergun](https://www.linkedin.com/in/svergun/)
+Maintained by [Sergiy Vergun](https://www.linkedin.com/in/svergun/)
