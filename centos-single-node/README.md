@@ -9,7 +9,7 @@ This is a Vagrantfile to deploy a **CentOS based** virtual machine using a Virtu
 
 [Vagrant CLI Official Guide](https://developer.hashicorp.com/vagrant/docs/cli)
 
-[Virtual Environment Extended Capabilities](https://github.com/svergun/vagrant/wiki/Vagrant-Extended-Capabilities)
+[Virtual Environment Extended Capabilities](https://github.com/svergun/vagrant/wiki/VE-Extended-Capabilities)
 
 # Default Configuration
 
