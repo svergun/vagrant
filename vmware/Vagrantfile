@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+if ENV['VAGRANT_NODE_COUNT']
+  VAGRANT_NODE_COUNT = ENV['VAGRANT_NODE_COUNT']
+else
+  VAGRANT_NODE_COUNT = 3
+end
+
+if ENV['VAGRANT_NODE_DISTR']
+  VAGRANT_NODE_DISTR = ENV['VAGRANT_NODE_DISTR']
+else
+  VAGRANT_NODE_DISTR = "svergun/centos9s-arm64"
+end
+
+Vagrant.configure("2") do |config|
+
+# LINUX NODES
+  (1..VAGRANT_NODE_COUNT.to_i).each do |i|
+    config.vm.define "node#{i}" do |node|
+      node.vm.box = "#{VAGRANT_NODE_DISTR}"
+      node.vm.hostname = "node#{i}.example.com"
+      node.vm.synced_folder ".", "/vagrant", disabled: true
+      node.vm.provision "node", type: "shell", path: "./provision-node.sh", env: {"n" => "#{VAGRANT_NODE_COUNT}"}
+      node.vm.provider "vmware_fusion" do |vmware|
+        vmware.gui = true
+        vmware.vmx["ethernet0.virtualDev"] = "vmxnet3"
+        vmware.vmx["memsize"] = "2048"
+        vmware.vmx["numvcpus"] = "2"
+        vmware.linked_clone = false
+      end
+    end
+  end
+end
